@@ -1,6 +1,13 @@
 #!/usr/bin/env python
 
 import scapy.all
+import argparse
+
+def arguments():
+    parser = argparse.ArgumentParser()
+    parser.add_argument("-t", "--target", dest="target", help="Specify target IP/IP range")
+    ops = parser.parse_args()
+    return ops
 
 def scan(ip):
 
@@ -33,5 +40,6 @@ def getResult(targets):
     for target in targets:
         print(target["ip"] + "\t\t" + target["mac"])
 
-scanRes = scan("10.0.2.1/24")
+ops = arguments()
+scanRes = scan(ops.target)
 getResult(scanRes)
